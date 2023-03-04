@@ -1,5 +1,15 @@
+
 function barChart( data ){
 
+    //jpg-export
+    var container = document.getElementById('jpg-export')
+    
+    var bar_container = document.getElementById('bar-chart')
+    var chart_height = bar_container.offsetHeight;
+    var chart_width = bar_container.offsetWidth;
+
+    console.log( chart_height, chart_width )
+    
     // ---- Process Data ----
     // -- Group by
     var result = _.countBy(data, 'agency');
@@ -9,65 +19,78 @@ function barChart( data ){
     let y_values = Object.values( result );
 
     // ---- PLOT ----
-    window.PLOTLYENV = window.PLOTLYENV || {};
-    if (document.getElementById("bar-chart")) {
-        Plotly.newPlot(
-            "bar-chart",
-            [
-            {
-                alignmentgroup: "True",
-                hovertemplate: "agency= %{x}<br># of Complaints= %{y}<extra></extra>",
-                legendgroup: "0",
-                marker: { color: "crimson" },
-                name: "0",
-                offsetgroup: "0",
-                orientation: "v",
-                showlegend: false,
-                textposition: "auto",
-                x: x_values,
-                y: y_values,
-                type: "bar",
+    var plot_data = {
+            alignmentgroup: "True",
+            hovertemplate: "agency= %{x}<br># of Complaints= %{y}<extra></extra>",
+            legendgroup: "0",
+            marker: { color: "crimson" },
+            name: "0",
+            offsetgroup: "0",
+            orientation: "v",
+            showlegend: false,
+            textposition: "auto",
+            x: x_values,
+            y: y_values,
+            type: "bar" 
+        }
+        
+    var plot_layout = {
+        template: {
+            layout: {
+            autotypenumbers: "strict",
+            font: { color: "#333333" },
+            hovermode: "closest",
+            hoverlabel: { align: "left" },
+            paper_bgcolor: "white",
+            plot_bgcolor: "white",
+            xaxis: {
+                gridcolor: "#333333",
+                linecolor: "#333333",
+                ticks: "",
+                title: { standoff: 15 },
+                zerolinecolor: "white",
+                automargin: true,
+                zerolinewidth: 2,
             },
-            ],
-            {
-            template: {
-                layout: {
-                autotypenumbers: "strict",
-                font: { color: "#333333" },
-                hovermode: "closest",
-                hoverlabel: { align: "left" },
-                paper_bgcolor: "white",
-                plot_bgcolor: "white",
-                xaxis: {
-                    gridcolor: "#333333",
-                    linecolor: "#333333",
-                    ticks: "",
-                    title: { standoff: 15 },
-                    zerolinecolor: "white",
-                    automargin: true,
-                    zerolinewidth: 2,
-                },
-                yaxis: {
-                    ticklabelposition: "outside top",
-                    gridcolor: "#333333",
-                    linecolor: "#333333",
-                    ticks: "",
-                    title: { standoff: 15 },
-                    zerolinecolor: "#333333",
-                    automargin: true,
-                    zerolinewidth: 2,
-                },
-                title: { x: 0.05 },
-                },
+            yaxis: {
+                ticklabelposition: "outside top",
+                gridcolor: "#333333",
+                linecolor: "#333333",
+                ticks: "",
+                title: { standoff: 15 },
+                zerolinecolor: "#333333",
+                automargin: true,
+                zerolinewidth: 2,
             },
-            xaxis: { anchor: "y", domain: [0.0, 1.0], title: { text: "Agency" } },
-            yaxis: { anchor: "x", domain: [0.0, 1.0], title: { text: "# of Complaints" } },
-            margin: { t: 0 },
-            barmode: "relative",
+            title: { x: 0.05 },
             },
-            { responsive: true , displayModeBar: false }
-        );
-    }
+        },
+        xaxis: { anchor: "y", domain: [0.0, 1.0], title: { text: "Agency" } },
+        yaxis: { anchor: "x", domain: [0.0, 1.0], title: { text: "# of Complaints" } },
+        margin: { t: 0 },
+        barmode: "relative",
+        }
+
+    var config = { responsive: true , displayModeBar: false }
+
+    // Plot chart.
+    Plotly.newPlot( "bar-chart", [plot_data], plot_layout, config )
+    //Static Image Geenration
+    // 1. save plot as image 
+    .then((gd) => {
+        return Plotly.toImage(gd, { format: 'svg',height:chart_height,width: chart_width });
+      })
+    //2. Load the svg into the image
+    .then((dataURI) => {
+        container.setAttribute('src',dataURI);
+        container.setAttribute('width',`${chart_width}px`);
+        container.setAttribute('height',`${chart_height}px`)
+        bar_container.setAttribute('hidden',true)
+      });
+
+
+
+
 
 }
 
@@ -246,6 +269,8 @@ fetch(url)
     barChart( data );
 
   });
+
+
 
 
 

@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PLOTLY TESTS</title>
+
+    <script type="text/javascript">window.PlotlyConfig = {MathJaxConfig: 'local'};</script>
+    <script src="plotly.min.js"></script>
+    <script src="lodash.js"> </script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/1.3.4/jspdf.debug.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.20.1/moment.min.js"></script>
+</head>
+<body>
+    
+    <div id="report">
+        <div id="plot" style="padding: 5px;">
+            <h2>PDF REPORT TESTS</h2>
+            <p class="paragraph">This is a heatmap showing number of weekly complaints per descriptor. </p>
+            <p class="paragraph">Lorem ipsum dolor sit amet consectetur adipisicing elit. Velit numquam doloremque, tempore voluptatem autem inventore similique, ipsa repellat, natus quisquam recusandae eius! In accusamus dicta repellat, odit eaque distinctio reiciendis.</p>
+            <div id="heatmap" class="plotly-graph-div" style="height:250px; width:100%;"></div>
+            <p class="paragraph">This is a barchart showing complaints per agency since 2022</p>
+            <p class="paragraph">Lorem ipsum dolor sit amet consectetur adipisicing elit. Velit numquam doloremque, tempore voluptatem autem inventore similique, ipsa repellat, natus quisquam recusandae eius! In accusamus dicta repellat, odit eaque distinctio reiciendis.</p>
+
+            <div id="bar-chart" class="plotly-graph-div" style="height:350px; width:100%;"></div> 
+            <img id="jpg-export"></img>
+            <script src="data.js" type="module"></script>
+        </div>
+    </div>
+
+    <button onclick="generatePDF()">Download PDF</button>
+    
+    <script>
+
+        // Not using this for now. 
+        function CreatePDF() {
+            
+            html2canvas(document.getElementById("report"),{width:1600,height:1200}).then(canvas => {
+                g = document.createElement('div');
+                g.setAttribute("id", "printer");
+                g.setAttribute("style","padding:5px;")
+                g.appendChild( canvas );
+                document.body.appendChild(g);
+            }).then( 
+                //generatePDF() 
+                console.log("done")
+                );
+
+        }
+        
+        function generatePDF() {
+
+            var doc = new jsPDF("p", "mm", "a4");  //create jsPDF object
+
+            doc.fromHTML(
+                document.getElementById("report"), // page element which you want to print as PDF
+                15,15,
+            {'width': 170},function(a) 
+            {
+                doc.save("Momo.pdf"); // save file name as HTML2PDF.pdf
+            });
+        }
+
+
+
+
+    </script>
+
+
+</body>
+</html>
