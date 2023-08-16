@@ -1,0 +1,132 @@
+@page {
+    size: 8.5in 11in;
+    border: 1px solid #000000;
+}
+
+html{
+    height: 11in;
+    width: 8.5in;
+    margin: 0;
+    padding: 0;
+    font-family: 'Source Sans Pro', sans-serif;
+    font-size: 10pt;
+    font-weight: normal;
+    color: #333333;
+    text-align: left;
+    background-color: #ffffff;
+    line-height: 1;
+}
+
+body{
+    margin: 0.5in;
+    padding: 0;
+}
+
+:root{
+    --blue: #2093f2;
+    --blue2: #39a2ea;
+}
+
+.text{
+    font-size: 12pt;
+    color: #333333;
+    margin: 0;
+    line-height: 1.25;
+}
+
+.title-container{
+    width: 100%;
+    height: 0.5in;
+    margin:0;
+}
+
+.page-container{
+    width: 100%;
+    height: 9.4in;
+    margin: 0;
+}
+
+.map-container{
+    width: 100%;
+    height: 4in;
+    margin: 0;
+    display: grid;
+    grid-template-columns: 5in auto;
+    column-gap: 0.125in;
+}
+
+.inset-column{
+    height: 4in;
+    display: grid;
+    grid-template-rows: 1.45in auto 2.3in;
+}
+
+#inset-grids{
+    height: 1.45in;
+    display: grid;
+    grid-template-columns: 0.8in auto;
+    column-gap: 0.125in;
+    row-gap: 0.125in;
+}
+
+.inset-info{
+    padding: 0.1em;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.blue-title{
+    font-size: 18px;
+    font-weight: bold;
+    text-align: right;
+    margin: 0;
+    color: var(--blue);
+}
+
+.bottom-container{
+    width: 100%;
+    height: 4.685in;
+    margin: 0;
+    display: grid;
+    column-gap: 0.15in;
+    grid-template-columns: auto 5in;
+}
+
+h1{
+    font-size: 28px;
+    font-weight: bold;
+    text-align: left;
+    margin: 0;
+    padding: 0;
+    margin-bottom: 0.05in;
+    color: var(--blue);
+}
+
+h2{
+    font-size: 18px;
+    font-weight: bold;
+    text-align: left;
+    margin: 0;
+    padding: 0;
+    color: #333333;
+    margin-top: 0.125in;
+}
+
+h3{
+    font-size: 12;
+    font-weight: normal;
+    text-align: left;
+    margin: 0;
+    padding: 0;
+    color: var(--blue);
+}
+
+hr{
+    border: 0.5px solid var(--blue2);
+    margin: 0;
+    padding: 0;
+}
+
+
